@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" width="960" height="660" font-family="Arial, sans-serif">
+  <rect width="960" height="660" fill="#f8f6f2"/>
+  <rect x="4" y="4" width="952" height="652" rx="4" fill="none" stroke="#bbb" stroke-width="1"/>
+
+  <text x="14" y="20" font-size="10" fill="#777">NODE: A0    TITLE: Управление мебельным магазином</text>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 2L9 5L1 8" fill="none" stroke="#444" stroke-width="1.5"/>
+    </marker>
+  </defs>
+
+  <!-- A1 Управлять каталогом -->
+  <rect x="60" y="60" width="170" height="80" rx="4" fill="#eef7ee" stroke="#3a5c3a" stroke-width="1.5"/>
+  <text x="145" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2e1a">Управлять</text>
+  <text x="145" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2e1a">каталогом</text>
+  <text x="145" y="130" text-anchor="middle" font-size="10" fill="#888">A1</text>
+
+  <!-- A2 Принимать поставки -->
+  <rect x="290" y="60" width="170" height="80" rx="4" fill="#eef7ee" stroke="#3a5c3a" stroke-width="1.5"/>
+  <text x="375" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2e1a">Принимать</text>
+  <text x="375" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2e1a">поставки</text>
+  <text x="375" y="130" text-anchor="middle" font-size="10" fill="#888">A2</text>
+
+  <!-- A3 Обрабатывать заказы -->
+  <rect x="520" y="60" width="170" height="80" rx="4" fill="#eef2fa" stroke="#3a3a5c" stroke-width="1.5"/>
+  <text x="605" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">Обрабатывать</text>
+  <text x="605" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">заказы</text>
+  <text x="605" y="130" text-anchor="middle" font-size="10" fill="#888">A3</text>
+
+  <!-- A4 Организовать доставку -->
+  <rect x="290" y="340" width="170" height="80" rx="4" fill="#fff4ee" stroke="#5c3a1a" stroke-width="1.5"/>
+  <text x="375" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#2e1a0a">Организовать</text>
+  <text x="375" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#2e1a0a">доставку</text>
+  <text x="375" y="410" text-anchor="middle" font-size="10" fill="#888">A4</text>
+
+  <!-- A5 Формировать отчёты -->
+  <rect x="520" y="340" width="170" height="80" rx="4" fill="#fff4ee" stroke="#5c3a1a" stroke-width="1.5"/>
+  <text x="605" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#2e1a0a">Формировать</text>
+  <text x="605" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#2e1a0a">отчёты</text>
+  <text x="605" y="410" text-anchor="middle" font-size="10" fill="#888">A5</text>
+
+  <!-- Входы слева -->
+  <line x1="14" y1="100" x2="60" y2="100" stroke="#444" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="37" y="92" text-anchor="middle" font-size="10" font-style="italic" fill="#444">Товары</text>
+
+  <line x1="14" y1="380" x2="290" y2="380" stroke="#444" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="150" y="372" text-anchor="middle" font-size="10" font-style="italic" fill="#444">Клиенты</text>
+
+  <!-- Выходы справа -->
+  <line x1="690" y1="100" x2="940" y2="100" stroke="#444" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="815" y="92" text-anchor="middle" font-size="10" font-style="italic" fill="#444">Сформированные заказы</text>
+
+  <line x1="690" y1="380" x2="940" y2="380" stroke="#444" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="815" y="372" text-anchor="middle" font-size="10" font-style="italic" fill="#444">Отчёты и аналитика</text>
+
+  <!-- Управление сверху -->
+  <line x1="145" y1="28" x2="145" y2="60" stroke="#444" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="145" y="22" text-anchor="middle" font-size="10" font-style="italic" fill="#444">Ценовая политика</text>
+
+  <line x1="375" y1="28" x2="375" y2="60" stroke="#444" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="605" y1="28" x2="605" y2="60" stroke="#444" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="490" y="22" text-anchor="middle" font-size="10" font-style="italic" fill="#444">Законодательство</text>
+
+  <!-- Механизмы снизу -->
+  <line x1="375" y1="560" x2="375" y2="420" stroke="#444" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="320" y="584" text-anchor="middle" font-size="10" font-style="italic" fill="#444">ИС (БД)</text>
+
+  <line x1="605" y1="560" x2="605" y2="420" stroke="#444" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="670" y="584" text-anchor="middle" font-size="10" font-style="italic" fill="#444">Сотрудники</text>
+
+  <!-- Связи между блоками (пунктир) -->
+  <!-- A1 → A2: Каталог -->
+  <line x1="230" y1="100" x2="290" y2="100" stroke="#444" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+  <text x="260" y="92" text-anchor="middle" font-size="9" fill="#666">Каталог</text>
+
+  <!-- A2 → A3: Поступления -->
+  <line x1="460" y1="100" x2="520" y2="100" stroke="#444" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+  <text x="490" y="92" text-anchor="middle" font-size="9" fill="#666">Поступления</text>
+
+  <!-- A3 → A4: Заказ клиента -->
+  <path d="M605 140 Q605 240 375 340" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+  <text x="530" y="240" text-anchor="middle" font-size="9" fill="#666">Заказ клиента</text>
+
+  <!-- A4 → A5: Данные о доставке -->
+  <line x1="460" y1="380" x2="520" y2="380" stroke="#444" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+  <text x="490" y="372" text-anchor="middle" font-size="9" fill="#666">Данные</text>
+
+  <text x="14" y="648" font-size="9" fill="#aaa">NODE: A0    TITLE: Управление мебельным магазином    AUTHOR: Мебельный магазин</text>
+</svg>
