@@ -2,14 +2,20 @@ flowchart LR
     Manager[Менеджер магазина]
     Reviewer[Проверяющий]
     App[Desktop-приложение Tkinter]
-    Core[app.order_logic]
+    Core[packages/core]
     SQLite[(SQLite mebel.db)]
     CSV[(CSV-данные)]
     SQL[(SQL-схема и запросы)]
+    Tests[tests/unit + tests/integration]
+    Smoke[tests/smoke Tkinter]
+    Docker[Docker + infra/compose.yaml]
+    TestPyPI[(TestPyPI furniture-store-core)]
 
     Manager --> App
     Reviewer --> App
-    Reviewer --> Tests[Автоматические тесты]
+    Reviewer --> Tests
+    Reviewer --> Smoke
+    Reviewer --> Docker
     App --> Core
     App --> SQLite
     App --> SQL
@@ -17,3 +23,7 @@ flowchart LR
     Tests --> Core
     Tests --> SQLite
     Tests --> SQL
+    Smoke --> App
+    Docker --> Tests
+    Docker --> Smoke
+    Core --> TestPyPI
