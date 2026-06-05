@@ -27,6 +27,12 @@ make run
 make check
 ```
 
+Локальная установка переиспользуемого компонента:
+
+```bash
+make install-lib-local
+```
+
 ---
 
 ## Запуск приложения
@@ -104,6 +110,7 @@ project-updated1/
 ├── scripts/                 - короткие команды запуска, тестов и проверки docs
 ├── Makefile                 - единая поверхность команд
 ├── Dockerfile               - контейнер для воспроизводимой проверки
+├── pyproject.toml           - упаковка переиспользуемого компонента
 ├── requirements.txt         - зависимости разработки
 └── .python-version          - версия Python
 ```
@@ -189,6 +196,52 @@ project-updated1/
 
 `main.py` и GUI-модули в `app/ui_*.py` отвечают за запуск окна, ввод пользователя и отображение данных.  
 Переиспользуемая логика расчёта заказа вынесена в `packages/core`; её можно проверять без запуска Tkinter и без подключения SQLite.
+
+### Упаковка компонента
+
+Переиспользуемый компонент подготовлен как Python-пакет `furniture-store-core`. Локальная установка:
+
+```bash
+make install-lib-local
+```
+
+Пакет опубликован в TestPyPI:
+
+```text
+https://test.pypi.org/project/furniture-store-core/0.1.0/
+```
+
+Установка опубликованной версии из TestPyPI:
+
+```bash
+python -m pip install --index-url https://test.pypi.org/simple/ furniture-store-core==0.1.0
+```
+
+Пример использования компонента:
+
+```python
+from packages.core import OrderLine, calculate_order_total
+
+lines = [OrderLine(product_id=1, quantity=2, unit_price=15000)]
+total = calculate_order_total(lines)
+print(total)  # 30000.0
+```
+
+Проверка сборки компонента:
+
+```bash
+make build-lib
+```
+
+Публикация в TestPyPI подготовлена отдельной командой:
+
+```bash
+make publish-lib-testpypi
+```
+
+Для реальной публикации нужен аккаунт TestPyPI и настроенный токен доступа. Секреты и токены в репозитории не хранятся.
+
+Внутри монорепозитория приложение и тесты используют локальный пакет `packages.core`. Публикация в TestPyPI показывает, что этот компонент можно вынести и установить отдельно от Tkinter-приложения.
 
 ### Данные вынесены в CSV
 Все начальные данные (статусы, товары, клиенты и т.д.) хранятся в `data/*.csv` и загружаются в БД при первом запуске. Чтобы изменить статусы или добавить новые — достаточно отредактировать CSV, код трогать не нужно.
