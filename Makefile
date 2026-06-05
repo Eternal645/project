@@ -7,7 +7,7 @@ help:
 	@echo "run    - start desktop application"
 	@echo "test   - run automated tests"
 	@echo "check  - run all local checks"
-	@echo "docs   - validate documentation sources"
+	@echo "docs   - build Sphinx documentation"
 	@echo "build-lib - validate reusable core package"
 	@echo "install-lib-local - install reusable package locally"
 	@echo "publish-lib-testpypi - build and publish package to TestPyPI"
@@ -40,7 +40,7 @@ publish-lib-testpypi:
 check: test build-lib docs
 
 docs:
-	$(PYTHON) -c "from pathlib import Path; required=['docs/index.md','docs/specification.md','docs/architecture.md','docs/domain.md','docs/api/public-interface.md','docs/diagrams/context.mmd','docs/diagrams/order-sequence.mmd','docs/diagrams/use-cases.mmd']; missing=[p for p in required if not Path(p).exists()]; assert not missing, missing; print('docs ok')"
+	$(PYTHON) -m sphinx -b html docs docs/_build/html
 
 compose-up:
 	docker compose -f infra/compose.yaml up --build
