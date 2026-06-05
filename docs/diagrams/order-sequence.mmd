@@ -1,7 +1,7 @@
 sequenceDiagram
     actor Manager as Менеджер
     participant UI as Форма заказа
-    participant Core as app.order_logic
+    participant Core as packages/core
     participant DB as SQLite
 
     Manager->>UI: выбирает клиента, товары и статус
