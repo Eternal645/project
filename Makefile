@@ -1,4 +1,4 @@
-.PHONY: help setup run test check clean docs compose-up compose-down build-lib
+.PHONY: help setup run test check clean docs compose-up compose-down docker-gui-smoke build-lib
 
 PYTHON ?= python
 
@@ -10,6 +10,7 @@ help:
 	@echo "docs   - validate documentation sources"
 	@echo "build-lib - validate reusable core package"
 	@echo "compose-up - build and run container checks"
+	@echo "docker-gui-smoke - run Tkinter smoke test in Docker"
 	@echo "compose-down - stop container checks"
 	@echo "clean  - remove generated local files"
 
@@ -32,6 +33,9 @@ docs:
 
 compose-up:
 	docker compose -f infra/compose.yaml up --build
+
+docker-gui-smoke:
+	docker compose -f infra/compose.yaml --profile gui run --rm gui-smoke
 
 compose-down:
 	docker compose -f infra/compose.yaml down
