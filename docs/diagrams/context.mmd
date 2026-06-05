@@ -1,0 +1,19 @@
+flowchart LR
+    Manager[Менеджер магазина]
+    Reviewer[Проверяющий]
+    App[Desktop-приложение Tkinter]
+    Core[app.order_logic]
+    SQLite[(SQLite mebel.db)]
+    CSV[(CSV-данные)]
+    SQL[(SQL-схема и запросы)]
+
+    Manager --> App
+    Reviewer --> App
+    Reviewer --> Tests[Автоматические тесты]
+    App --> Core
+    App --> SQLite
+    App --> SQL
+    SQLite --> CSV
+    Tests --> Core
+    Tests --> SQLite
+    Tests --> SQL
