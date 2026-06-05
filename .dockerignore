@@ -1,0 +1,12 @@
+.git
+.codex
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.coverage
+htmlcov
+db
+screenshots
+codex-files-to-copy
