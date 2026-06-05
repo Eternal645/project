@@ -33,6 +33,25 @@ make check
 make install-lib-local
 ```
 
+Опубликованный reusable-компонент:
+
+```text
+https://test.pypi.org/project/furniture-store-core/0.1.0/
+```
+
+### Команды проверки
+
+| Команда | Назначение |
+|---|---|
+| `make test` | Запустить автоматические тесты |
+| `make docs` | Проверить наличие всей документации и диаграмм |
+| `make build-lib` | Проверить reusable-компонент `packages/core` |
+| `make check` | Выполнить локальную проверку тестов, компонента и docs |
+| `make compose-up` | Запустить тесты в Docker |
+| `make docker-gui-smoke` | Проверить Tkinter через виртуальный дисплей в Docker |
+| `make install-lib-local` | Установить reusable-компонент локально |
+| `make publish-lib-testpypi` | Собрать и опубликовать пакет в TestPyPI |
+
 ---
 
 ## Запуск приложения
@@ -359,3 +378,20 @@ make docker-gui-smoke
 ```bash
 docker compose -f infra/compose.yaml --profile gui run --rm gui-smoke
 ```
+
+---
+
+## Что не хранится в репозитории
+
+В Git не добавляются сгенерированные и локальные файлы:
+
+- `db/`
+- `__pycache__/`
+- `.pytest_cache/`
+- `build/`
+- `dist/`
+- `*.egg-info/`
+- `.venv/`
+- токены TestPyPI и другие секреты
+
+Они либо создаются при запуске, либо относятся к локальному окружению разработчика.
