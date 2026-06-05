@@ -1,0 +1,18 @@
+sequenceDiagram
+    actor Manager as Менеджер
+    participant UI as Форма заказа
+    participant Core as app.order_logic
+    participant DB as SQLite
+
+    Manager->>UI: выбирает клиента, товары и статус
+    UI->>Core: проверить строки и рассчитать итог
+    Core-->>UI: итоговая сумма
+    UI->>DB: сохранить заказ и строки заказа
+    alt статус "доставляется"
+        UI->>DB: списать остатки товаров
+        UI->>DB: создать доставку
+    else статус "отменен" после доставки
+        UI->>DB: вернуть товары на склад
+    end
+    DB-->>UI: изменения сохранены
+    UI-->>Manager: заказ отображен в таблице
