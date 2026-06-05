@@ -1,2 +1,4 @@
 # Runtime dependencies are from the Python standard library.
-# Keep this file for reproducible setup commands.
+# Packaging tools are installed only when build/publish commands are run.
+sphinx>=7.2
+myst-parser>=2.0
