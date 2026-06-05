@@ -10,6 +10,9 @@ flowchart LR
     UC5((Посмотреть отчеты))
     UC6((Запустить тесты))
     UC7((Проверить документацию))
+    UC8((Проверить Tkinter smoke))
+    UC9((Установить core-пакет))
+    UC10((Опубликовать пакет в TestPyPI))
 
     Manager --> UC1
     Manager --> UC2
@@ -18,3 +21,6 @@ flowchart LR
     Warehouse --> UC4
     Reviewer --> UC6
     Reviewer --> UC7
+    Reviewer --> UC8
+    Reviewer --> UC9
+    Reviewer --> UC10
