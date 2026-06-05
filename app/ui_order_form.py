@@ -14,7 +14,6 @@ from tkinter import ttk, messagebox
 
 from app.database import get_query
 
-
 # Вспомогательные функции
 
 def _get_status_flags(conn, status_name: str) -> dict:
@@ -114,6 +113,7 @@ def _auto_create_delivery(cur, conn, order_id, order_date):
         (order_id, address, order_date, courier, delivery_status_id),
     )
 
+
 # Главная форма
 
 def open_order_form(conn, parent, tree_refresh_cb, order_id=None):
@@ -124,7 +124,7 @@ def open_order_form(conn, parent, tree_refresh_cb, order_id=None):
     win.minsize(680, 520)
     win.grab_set()
 
-    # Справочники 
+    # Справочники
     clients   = [(r["фио"], r["id"]) for r in conn.execute("SELECT id, фио FROM Клиенты ORDER BY фио").fetchall()]
     employees = [(r["фио"], r["id"]) for r in conn.execute("SELECT id, фио FROM Сотрудники ORDER BY фио").fetchall()]
 
@@ -219,7 +219,7 @@ def open_order_form(conn, parent, tree_refresh_cb, order_id=None):
     def _update_total():
         var_total.set(f"{sum(ln['qty'] * ln['price'] for ln in order_lines):,.2f}")
 
-    # Панель добавления строки 
+    # Панель добавления строки
     add_frame = ttk.Frame(win)
     add_frame.pack(fill="x", padx=12, pady=(0, 2))
 
@@ -318,7 +318,7 @@ def open_order_form(conn, parent, tree_refresh_cb, order_id=None):
     ttk.Label(bottom, textvariable=var_total,
               font=("Arial", 11, "bold"), foreground="#8b4513").pack(side="left", padx=(6, 40))
 
-    # Сохранение
+    # Сохранени
     def _save():
         client_name = var_client.get().strip()
         if not client_name:
@@ -350,7 +350,7 @@ def open_order_form(conn, parent, tree_refresh_cb, order_id=None):
                 if old_delivering and new_cancelled:
                     _restore_stock(cur, order_id)
 
-                # Статус менялся НА «доставляется» (раньше не был) : списать товар
+                # Статус менялся НА «доставляется» : списать товар
                 if new_delivering and not old_delivering:
                     _deduct_stock(cur, order_lines)
                     _auto_create_delivery(cur, conn, order_id, date)
