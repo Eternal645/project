@@ -1,11 +1,14 @@
+import os
 import tkinter as tk
 from tkinter import ttk
 
+from app.config import APP_GEOMETRY, APP_TITLE, APP_VERSION, DASHBOARD_CARDS, DB_PATH, NAV_TABLES, THEME
 from app.database import connect_db, init_db
 from app.ui_tables import open_table_window
 from app.ui_reports import open_reports_window
 
-conn = connect_db("db/mebel.db")
+os.makedirs(os.path.dirname(DB_PATH) or ".", exist_ok=True)
+conn = connect_db(DB_PATH)
 try:
     init_db(conn)
 except Exception as e:
@@ -17,20 +20,17 @@ def on_close():
     conn.close()
     root.destroy()
 
-BG        = "#f0ece4"
-SIDEBAR   = "#4a3728"
-SB_ACTIVE = "#6b5242"
-SB_FG     = "#f5ede3"
-ACCENT    = "#c9873a"
-CARD_BG   = "#faf7f2"
-CARD_BD   = "#ddd4c4"
-BTN_BG    = "#c9873a"
-BTN_FG    = "white"
-BTN_HOV   = "#a86a28"
+BG = THEME["bg"]
+SIDEBAR = THEME["sidebar"]
+SB_ACTIVE = THEME["sidebar_active"]
+SB_FG = THEME["sidebar_fg"]
+ACCENT = THEME["accent"]
+CARD_BG = THEME["card_bg"]
+CARD_BD = THEME["card_border"]
 
 root = tk.Tk()
-root.title("Мебельный магазин")
-root.geometry("780x520")
+root.title(APP_TITLE)
+root.geometry(APP_GEOMETRY)
 root.resizable(False, False)
 root.configure(bg=BG)
 root.protocol("WM_DELETE_WINDOW", on_close)
@@ -49,23 +49,13 @@ logo_frame.pack(fill="x")
 logo_frame.pack_propagate(False)
 tk.Label(logo_frame, text="🛋", font=("Arial", 28),
          bg=ACCENT, fg="white").pack(pady=(10, 0))
-tk.Label(logo_frame, text="Мебель", font=("Arial", 11, "bold"),
+tk.Label(logo_frame, text=APP_TITLE.split()[0], font=("Arial", 11, "bold"),
          bg=ACCENT, fg="white").pack()
 
 tk.Frame(sidebar, bg=ACCENT, height=2).pack(fill="x")
 
-NAV_ITEMS = [
-    ("  Товары",         lambda: show_section("Товары")),
-    ("  Категории",      lambda: show_section("Категории")),
-    ("  Поставщики",     lambda: show_section("Поставщики")),
-    ("  Поставки",       lambda: show_section("Поставки")),
-    ("  Заказы",         lambda: show_section("Заказы")),
-    ("  Строки заказа",  lambda: show_section("Строки заказа")),
-    ("  Доставки",       lambda: show_section("Доставки")),
-    ("  Клиенты",        lambda: show_section("Клиенты")),
-    ("  Сотрудники",     lambda: show_section("Сотрудники")),
-    ("  Отчёты",         lambda: open_reports_window(conn, root)),
-]
+NAV_ITEMS = [(f"  {label}", lambda table=table: show_section(table)) for label, table in NAV_TABLES]
+NAV_ITEMS.append(("  Отчёты", lambda: open_reports_window(conn, root)))
 
 nav_buttons = []
 
@@ -83,7 +73,7 @@ for text, cmd in NAV_ITEMS:
     b = make_nav_btn(sidebar, text, cmd)
     nav_buttons.append(b)
 
-tk.Label(sidebar, text="v1.0", bg=SIDEBAR, fg="#7a6555",
+tk.Label(sidebar, text=APP_VERSION, bg=SIDEBAR, fg="#7a6555",
          font=("Arial", 8)).pack(side="bottom", pady=6)
 
 main_area = tk.Frame(root, bg=BG)
@@ -94,7 +84,7 @@ title_bar.pack(fill="x", padx=20, pady=(16, 0))
 title_bar.pack_propagate(False)
 
 page_title = tk.Label(title_bar, text="Добро пожаловать",
-                      font=("Arial", 16, "bold"), bg=BG, fg="#3a2a1a")
+                      font=("Arial", 16, "bold"), bg=BG, fg=THEME["title_fg"])
 page_title.pack(side="left", anchor="w")
 
 tk.Frame(main_area, bg=CARD_BD, height=1).pack(fill="x", padx=20, pady=(8, 12))
@@ -102,14 +92,16 @@ tk.Frame(main_area, bg=CARD_BD, height=1).pack(fill="x", padx=20, pady=(8, 12))
 cards_frame = tk.Frame(main_area, bg=BG)
 cards_frame.pack(fill="both", expand=True, padx=20)
 
+ALLOWED_DASHBOARD_TABLES = {table for _, _, _, table in DASHBOARD_CARDS}
+
 def _count(table):
+    if table not in ALLOWED_DASHBOARD_TABLES:
+        raise ValueError(f"Недопустимая таблица для карточки: {table}")
     return conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
 
 CARDS = [
-    ("Товары",      f"{_count('Товары')} позиций",      ACCENT,   "Товары"),
-    ("Клиенты",     f"{_count('Клиенты')} клиентов",    "#5a8a5a","Клиенты"),
-    ("Заказы",      f"{_count('Заказы')} заказов",       "#5a6a8a","Заказы"),
-    ("Поставщики",  f"{_count('Поставщики')} партнёров", "#8a5a6a","Поставщики"),
+    (title, f"{_count(table)} {subtitle}", THEME[color] if color in THEME else color, table)
+    for title, subtitle, color, table in DASHBOARD_CARDS
 ]
 
 def make_card(parent, title, subtitle, color, table, row, col):
@@ -122,9 +114,9 @@ def make_card(parent, title, subtitle, color, table, row, col):
     accent_bar.pack(fill="x")
 
     tk.Label(card, text=title, font=("Arial", 13, "bold"),
-             bg=CARD_BG, fg="#3a2a1a").pack(anchor="w", padx=14, pady=(10, 2))
+             bg=CARD_BG, fg=THEME["title_fg"]).pack(anchor="w", padx=14, pady=(10, 2))
     tk.Label(card, text=subtitle, font=("Arial", 10),
-             bg=CARD_BG, fg="#7a6a5a").pack(anchor="w", padx=14, pady=(0, 6))
+             bg=CARD_BG, fg=THEME["muted_fg"]).pack(anchor="w", padx=14, pady=(0, 6))
 
     open_btn = tk.Label(card, text="Открыть →", font=("Arial", 9),
                         bg=CARD_BG, fg=color, cursor="hand2")
@@ -141,12 +133,12 @@ for r in range(2):
 for i, (title, subtitle, color, table) in enumerate(CARDS):
     make_card(cards_frame, title, subtitle, color, table, i // 2, i % 2)
 
-status_bar = tk.Frame(main_area, bg="#e8e0d4", height=26)
+status_bar = tk.Frame(main_area, bg=THEME["status_bg"], height=26)
 status_bar.pack(fill="x", side="bottom")
 status_bar.pack_propagate(False)
 tk.Label(status_bar,
          text=f"Товаров: {_count('Товары')}  │  Клиентов: {_count('Клиенты')}  │  Заказов: {_count('Заказы')}",
-         bg="#e8e0d4", fg="#7a6a5a", font=("Arial", 8), anchor="w"
+         bg=THEME["status_bg"], fg=THEME["muted_fg"], font=("Arial", 8), anchor="w"
          ).pack(side="left", padx=12)
 
 def show_section(name):
