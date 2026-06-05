@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "furniture-store-core"
+version = "0.1.0"
+description = "Reusable order calculation core for the furniture store course project"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Course project team" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+
+[tool.setuptools.packages.find]
+include = ["packages*"]
