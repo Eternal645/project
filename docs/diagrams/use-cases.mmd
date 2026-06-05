@@ -1,0 +1,20 @@
+flowchart LR
+    Manager[Менеджер]
+    Warehouse[Склад]
+    Reviewer[Проверяющий]
+
+    UC1((Вести справочники))
+    UC2((Создать заказ))
+    UC3((Проверить остатки))
+    UC4((Оформить доставку))
+    UC5((Посмотреть отчеты))
+    UC6((Запустить тесты))
+    UC7((Проверить документацию))
+
+    Manager --> UC1
+    Manager --> UC2
+    Manager --> UC5
+    Warehouse --> UC3
+    Warehouse --> UC4
+    Reviewer --> UC6
+    Reviewer --> UC7
