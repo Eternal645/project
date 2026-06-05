@@ -278,7 +278,7 @@ SELECT ...
 
 ## Контейнерная проверка
 
-Desktop GUI удобнее запускать локально на Windows, но контейнер фиксирует воспроизводимое Python-окружение для тестов:
+Desktop GUI удобнее запускать локально на Windows, но контейнер фиксирует воспроизводимое Python-окружение для тестов. В образ также установлены `python3-tk` и `xvfb`, чтобы при необходимости можно было добавить headless-проверки Tkinter; текущая команда контейнера запускает unit/integration-тесты без открытия окна.
 
 Если используется структура из репозитория, команда из Makefile:
 
@@ -293,3 +293,15 @@ docker compose -f infra/compose.yaml up --build
 ```
 
 Контейнер запускает `python -m unittest discover -s tests`.
+
+Отдельная короткая проверка Tkinter в виртуальном дисплее:
+
+```bash
+make docker-gui-smoke
+```
+
+или напрямую:
+
+```bash
+docker compose -f infra/compose.yaml --profile gui run --rm gui-smoke
+```
